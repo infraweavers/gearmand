@@ -344,7 +344,7 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
 gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
 {
   /*DEBUG LOGGING*/
-  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: job.cc - line 344 - gearman_server_job_queue - Numerator: %i, Denominator: %i",job->numerator,job->denominator);
+  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: job.cc - line 344 - gearman_server_job_queue (%i) - Numerator: %i, Denominator: %i",job,job->numerator,job->denominator);
   if (job->worker)
   {
     job->retries++;
@@ -388,7 +388,7 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
 
     GEARMAND_LIST_DEL(job->worker->job, job, worker_);
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 389 - GEARMAND_LIST_DEL - Numerator: %i, Denominator: %i",job->numerator,job->denominator);
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 389 - GEARMAND_LIST_DEL (%i) - Numerator: %i, Denominator: %i",job,job->numerator,job->denominator);
     job->worker= NULL;
     job->function->job_running--;
     job->function_next= NULL;
