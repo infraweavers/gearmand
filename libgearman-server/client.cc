@@ -61,7 +61,7 @@ gearman_server_client_add(gearman_server_con_st *con)
     client= Server->free_client_list;
     GEARMAND_LIST_DEL(Server->free_client, client, con_);
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "client.cc - line 62 - GEARMAND_LIST_DEL");
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: client.cc - line 62 - GEARMAND_LIST_DEL");
   }
   else
   {
@@ -93,13 +93,13 @@ void gearman_server_client_free(gearman_server_client_st *client)
   {
     GEARMAND_LIST_DEL(client->con->client, client, con_);
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "client.cc - line 94 - GEARMAND_LIST_DEL");
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: client.cc - line 94 - GEARMAND_LIST_DEL");
 
     if (client->job)
     {
       GEARMAND_LIST_DEL(client->job->client, client, job_);
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "client.cc - line 100 - GEARMAND_LIST_DEL");
+      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: client.cc - line 100 - GEARMAND_LIST_DEL");
 
       /* If this was a foreground job and is now abandoned, mark to not run. */
       if (client->job->client_list == NULL)

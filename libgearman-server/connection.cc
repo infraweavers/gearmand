@@ -440,7 +440,7 @@ gearman_server_con_st * gearman_server_con_to_be_freed_next(gearman_server_threa
     {
       GEARMAND_LIST_DEL(thread->to_be_freed, con, to_be_freed_);
       /*DEBUG LOGGING*/
-        gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "connection.cc - line 441 - GEARMAND_LIST_DEL");
+        gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 441 - GEARMAND_LIST_DEL");
         if (con->to_be_freed_list)
         {
           con->to_be_freed_list= false;
@@ -513,7 +513,7 @@ void gearman_server_con_io_remove(gearman_server_con_st *con)
     {
       GEARMAND_LIST_DEL(con->thread->io, con, io_);
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"connection.cc - line 514 - GEARMAND_LIST_DEL");
+      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: connection.cc - line 514 - GEARMAND_LIST_DEL");
       con->io_list= false;
     }
     if ((lock_error= pthread_mutex_unlock(&con->thread->lock)))
@@ -598,7 +598,7 @@ void gearman_server_con_proc_remove(gearman_server_con_st *con)
     {
       GEARMAND_LIST_DEL(con->thread->proc, con, proc_);
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "connection.cc - line 599 - GEARMAND_LIST_DEL");
+      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 599 - GEARMAND_LIST_DEL");
       con->proc_list= false;
     }
 
@@ -631,7 +631,7 @@ gearman_server_con_proc_next(gearman_server_thread_st *thread)
     {
       GEARMAND_LIST_DEL(thread->proc, con, proc_);
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "connection.cc - line 632 - GEARMAND_LIST_DEL");
+      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 632 - GEARMAND_LIST_DEL");
       con->proc_list= false;
       if (!(con->proc_removed))
       {
@@ -665,7 +665,7 @@ static void _server_job_timeout(int fd, short event, void *arg)
                        job->job_handle, job->unique);
 
   /*DEBUG LOGGING*/
-  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "connection.cc - line 669 - gearman_server_job_queue");
+  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 669 - gearman_server_job_queue");
   gearmand_error_t ret= gearman_server_job_queue(job);
 
   if (ret != GEARMAND_SUCCESS)
@@ -761,7 +761,7 @@ gearman_server_con_st *gearmand_ready(gearmand_connection_list_st *universal)
     con->options.ready= false;
     GEARMAND_LIST_DEL(universal->ready_con, con, ready_);
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "connection.cc - line 762 - GEARMAND_LIST_DEL");
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 762 - GEARMAND_LIST_DEL");
     return con->root;
   }
 
