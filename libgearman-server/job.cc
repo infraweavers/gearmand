@@ -320,7 +320,7 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
     {
       GEARMAND_LIST_DEL(server_job->worker->job, server_job, worker_);
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL (%i) - Numerator: %i, Denominator: %i",server_job,server_job->numerator,server_job->denominator);
+      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL (list: %i item: %i) %i",server_job->worker->job, server_job, server_job->function->job_running);
     }
 
     uint32_t key= server_job->unique_key % Server->hashtable_buckets;
@@ -343,8 +343,6 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
 
 gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
 {
-  /*DEBUG LOGGING*/
-  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: job.cc - line 344 - gearman_server_job_queue (%i) - Numerator: %i, Denominator: %i",job,job->numerator,job->denominator);
   if (job->worker)
   {
     job->retries++;
@@ -388,7 +386,7 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
 
     GEARMAND_LIST_DEL(job->worker->job, job, worker_);
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 389 - GEARMAND_LIST_DEL (%i) - Numerator: %i, Denominator: %i",job,job->numerator,job->denominator);
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL (list: %i item: %i) running: %i",job->worker->job, job, job->function->job_running);
     job->worker= NULL;
     job->function->job_running--;
     job->function_next= NULL;
