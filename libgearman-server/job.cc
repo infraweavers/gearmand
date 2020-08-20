@@ -320,7 +320,7 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
     {
       GEARMAND_LIST_DEL(server_job->worker->job, server_job, worker_);
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL - Numerator: %i, Denominator: %i",server_job->numerator,server_job->denominator);      
+      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL (%i) - Numerator: %i, Denominator: %i",server_job,server_job->numerator,server_job->denominator);
     }
 
     uint32_t key= server_job->unique_key % Server->hashtable_buckets;

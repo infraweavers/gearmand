@@ -54,8 +54,6 @@ static gearman_server_worker_st* gearman_server_worker_create(gearman_server_con
   {
     worker= Server->free_worker_list;
     GEARMAND_LIST_DEL(Server->free_worker, worker, con_);
-    /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: worker.cc - line 56 - GEARMAND_LIST_DEL");
   }
   else
   {
