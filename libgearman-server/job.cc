@@ -398,6 +398,7 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
   }
 
   /* Queue NOOP for possible sleeping workers. */
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job->function->worker_list %i",job->function->worker_list);
   if (job->function->worker_list != NULL)
   {
     gearman_server_worker_st *worker= job->function->worker_list;
@@ -443,6 +444,7 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
   job->function->job_end[job->priority]= job;
   job->function->job_count++;
 
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: returning GEARMAND_SUCCESS");
   return GEARMAND_SUCCESS;
 }
 #pragma GCC diagnostic pop
