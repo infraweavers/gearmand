@@ -343,6 +343,7 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
 
 gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
 {
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job->worker %i",job->worker);
   if (job->worker)
   {
     job->retries++;
