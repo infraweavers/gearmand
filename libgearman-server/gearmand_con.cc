@@ -372,8 +372,7 @@ gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con
         GEARMAND_LIST_DEL(server_con->worker, server_worker, con_)
         /*DEBUG LOGGING*/
           gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,
-                       "gearmand_con.cc - line 372 - GEARMAND_LIST_DEL",
-                       job->job_handle, job->unique);
+                       "gearmand_con.cc - line 372 - GEARMAND_LIST_DEL");
         _server_con_worker_list_append(server_con->worker_list, server_worker);
         ++server_con->worker_count;
         if (server_con->worker_list == NULL)
