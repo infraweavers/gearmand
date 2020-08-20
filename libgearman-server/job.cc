@@ -384,9 +384,11 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
       return GEARMAND_SUCCESS;
     }
 
-    GEARMAND_LIST_DEL(job->worker->job, job, worker_);
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL (list: %i item: %i) running: %i",job->worker->job, job, job->function->job_running);
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 389 - GEARMAND_LIST_DEL (list: %i item: %i) running: %i",job->worker->job, job, job->function->job_running);
+
+    GEARMAND_LIST_DEL(job->worker->job, job, worker_);
+    
     job->worker= NULL;
     job->function->job_running--;
     job->function_next= NULL;
