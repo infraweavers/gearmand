@@ -684,6 +684,10 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
 
         if (server_job)
         {
+          /*DEBUG LOGGING*/
+          gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,
+                       "server.cc - line 691 - gearman_server_job_queue",
+                       job->job_handle, job->unique);
           return gearman_server_job_queue(server_job);
         }
 

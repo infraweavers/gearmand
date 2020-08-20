@@ -127,6 +127,10 @@ gearman_server_job_take(gearman_server_con_st *server_con);
  */
 GEARMAN_API
 gearmand_error_t gearman_server_job_queue(gearman_server_job_st *server_job);
+/*DEBUG LOGGING*/
+  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,
+                       "job.h - line 129 - gearman_server_job_queue",
+                       job->job_handle, job->unique);
 
 uint32_t _server_job_hash(const char *key, size_t key_size);
 
