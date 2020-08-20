@@ -528,9 +528,7 @@ void gearmand_io_free(gearmand_io_st *connection)
     connection->options.ready= false;
     GEARMAND_LIST_DEL(connection->universal->ready_con, connection, ready_);
     /*DEBUG LOGGING*/
-          gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,
-                       "io.cc - line 529 - GEARMAND_LIST_DEL",
-                       job->job_handle, job->unique);
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "io.cc - line 529 - GEARMAND_LIST_DEL");
   }
 
   GEARMAND_LIST__DEL(connection->universal->con, connection);

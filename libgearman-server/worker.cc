@@ -55,9 +55,7 @@ static gearman_server_worker_st* gearman_server_worker_create(gearman_server_con
     worker= Server->free_worker_list;
     GEARMAND_LIST_DEL(Server->free_worker, worker, con_);
     /*DEBUG LOGGING*/
-          gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,
-                       "worker.cc - line 56 - GEARMAND_LIST_DEL",
-                       job->job_handle, job->unique);
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "worker.cc - line 56 - GEARMAND_LIST_DEL");
   }
   else
   {
@@ -129,9 +127,7 @@ void gearman_server_worker_free(gearman_server_worker_st *worker)
   {
     gearmand_error_t ret= gearman_server_job_queue(worker->job_list);
     /*DEBUG LOGGING*/
-          gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,
-                       "worker.cc - line 126 - gearman_server_job_queue",
-                       job->job_handle, job->unique);
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "worker.cc - line 128 - gearman_server_job_queue");
     if (ret != GEARMAND_SUCCESS)
     {
       gearmand_gerror_warn("gearman_server_job_queue", ret);
@@ -140,9 +136,7 @@ void gearman_server_worker_free(gearman_server_worker_st *worker)
 
   GEARMAND_LIST_DEL(worker->con->worker, worker, con_);
   /*DEBUG LOGGING*/
-          gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,
-                       "worker.cc - line 141 - GEARMAND_LIST_DEL",
-                       job->job_handle, job->unique);
+  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"worker.cc - line 137 - GEARMAND_LIST_DEL",);
 
   if (worker == worker->function_next)
   {
