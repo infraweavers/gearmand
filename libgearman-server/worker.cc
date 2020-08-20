@@ -136,7 +136,7 @@ void gearman_server_worker_free(gearman_server_worker_st *worker)
 
   GEARMAND_LIST_DEL(worker->con->worker, worker, con_);
   /*DEBUG LOGGING*/
-  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"worker.cc - line 137 - GEARMAND_LIST_DEL",);
+  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"worker.cc - line 137 - GEARMAND_LIST_DEL");
 
   if (worker == worker->function_next)
   {
