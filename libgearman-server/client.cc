@@ -62,8 +62,7 @@ gearman_server_client_add(gearman_server_con_st *con)
     GEARMAND_LIST_DEL(Server->free_client, client, con_);
     /*DEBUG LOGGING*/
           gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,
-                       "client.cc - line 62 - GEARMAND_LIST_DEL",
-                       job->job_handle, job->unique);
+                       "client.cc - line 62 - GEARMAND_LIST_DEL");
   }
   else
   {
