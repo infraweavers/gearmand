@@ -264,7 +264,7 @@ gearman_server_job_add_reducer(gearman_server_st *server,
 
     *ret_ptr= gearman_server_job_queue(server_job);
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: job.cc - line 265 - gearman_server_job_queue");
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: job.cc - line 265 - gearman_server_job_queue - Numerator: %i, Denominator: %i",job->numerator,job->denominator);
     if (gearmand_failed(*ret_ptr))
     {
       if (server_client == NULL)
@@ -320,7 +320,7 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
     {
       GEARMAND_LIST_DEL(server_job->worker->job, server_job, worker_);
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL");      
+      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL - Numerator: %i, Denominator: %i",job->numerator,job->denominator);      
     }
 
     uint32_t key= server_job->unique_key % Server->hashtable_buckets;
@@ -388,7 +388,7 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
 
     GEARMAND_LIST_DEL(job->worker->job, job, worker_);
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 389 - GEARMAND_LIST_DEL", job->worker);
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 389 - GEARMAND_LIST_DEL - Numerator: %i, Denominator: %i",job->numerator,job->denominator);
     job->worker= NULL;
     job->function->job_running--;
     job->function_next= NULL;
