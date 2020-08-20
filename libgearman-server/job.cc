@@ -318,9 +318,9 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
 
     if (server_job->worker != NULL)
     {
-      GEARMAND_LIST_DEL(server_job->worker->job, server_job, worker_);
       /*DEBUG LOGGING*/
       gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL (list: %i item: %i) %i",server_job->worker->job, server_job, server_job->function->job_running);
+      GEARMAND_LIST_DEL(server_job->worker->job, server_job, worker_);
     }
 
     uint32_t key= server_job->unique_key % Server->hashtable_buckets;
