@@ -255,6 +255,7 @@ gearman_server_job_add_reducer(gearman_server_st *server,
       if (gearmand_failed(*ret_ptr))
       {
         server_job->data= NULL;
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(%i)",server_job);
         gearman_server_job_free(server_job);
         return NULL;
       }
@@ -277,7 +278,7 @@ gearman_server_job_add_reducer(gearman_server_st *server,
       }
 
       /*DEBUG LOGGING*/
-      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: deleting again? %i",server_job);
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(%i)",server_job);
       gearman_server_job_free(server_job);
       return NULL;
     }
@@ -383,6 +384,7 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
         }
       }
 
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(%i)",job);
       gearman_server_job_free(job);
       return GEARMAND_SUCCESS;
     }

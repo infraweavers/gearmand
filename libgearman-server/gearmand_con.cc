@@ -341,7 +341,7 @@ gearman_server_job_st * gearman_server_job_peek(gearman_server_con_st *server_co
             /* This is only happens when a client disconnects from a foreground
               job. We do this because we don't want to run the job anymore. */
             server_job->ignore_job= false;
-
+            gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(____________)");
             gearman_server_job_free(gearman_server_job_take(server_con));
 
             return gearman_server_job_peek(server_con);
@@ -427,6 +427,7 @@ gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con
 
         if (server_job->ignore_job)
         {
+          gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(%i)",server_job);
           gearman_server_job_free(server_job);
           return gearman_server_job_take(server_con);
         }

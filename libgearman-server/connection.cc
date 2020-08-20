@@ -663,7 +663,7 @@ static void _server_job_timeout(int fd, short event, void *arg)
                        job->job_handle, job->unique);
 
   /*DEBUG LOGGING*/
-  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 669 - gearman_server_job_queue");
+  gearmand_log_notice(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 669 - gearman_server_job_queue");
   gearmand_error_t ret= gearman_server_job_queue(job);
 
   if (ret != GEARMAND_SUCCESS)
@@ -671,6 +671,7 @@ static void _server_job_timeout(int fd, short event, void *arg)
     gearmand_log_error(GEARMAN_DEFAULT_LOG_PARAM,
                        "Failed trying to requeue job after timeout, job lost: %s %s",
                        job->job_handle, job->unique);
+    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(job)",job);
     gearman_server_job_free(job);
   }
 }

@@ -804,6 +804,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
       }
 
       /* Job is done, remove it. */
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(%i)",server_job);
       gearman_server_job_free(server_job);
     }
     break;
@@ -845,6 +846,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
       }
 
       /* Job is done, remove it. */
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(%i)",server_job);
       gearman_server_job_free(server_job);
     }
 
@@ -902,6 +904,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
       }
 
       /* Job is done, remove it. */
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(%i)",server_job);
       gearman_server_job_free(server_job);
     }
 

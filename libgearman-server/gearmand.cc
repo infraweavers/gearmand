@@ -133,6 +133,7 @@ static void gearman_server_free(gearman_server_st& server)
     while (server.job_hash[key] != NULL)
     {
       gearman_server_save_job(server, server.job_hash[key]);
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(%i)",server.job_hash[key]);
       gearman_server_job_free(server.job_hash[key]);
     }
   }
