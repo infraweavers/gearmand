@@ -276,6 +276,8 @@ gearman_server_job_add_reducer(gearman_server_st *server,
                                  server_job->function->function_name_size);
       }
 
+      /*DEBUG LOGGING*/
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: deleting again? %i",server_job);
       gearman_server_job_free(server_job);
       return NULL;
     }
