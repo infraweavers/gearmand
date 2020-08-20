@@ -344,7 +344,7 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
 gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
 {
   /*DEBUG LOGGING*/
-  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "connection.cc - line 344 - gearman_server_job_queue - Numerator: %i, Denominator: %i",job->numerator);
+  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "connection.cc - line 344 - gearman_server_job_queue - Numerator: %i, Denominator: %i",job->numerator,job->denominator);
   if (job->worker)
   {
     job->retries++;
