@@ -319,7 +319,7 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
     if (server_job->worker != NULL)
     {
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL (list: %i item: %i) %i",server_job->worker->job, server_job, server_job->function->job_running);
+      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 321 - GEARMAND_LIST_DEL (list: %i item: %i) %i",server_job->worker->job_list, server_job, server_job->function->job_running);
       GEARMAND_LIST_DEL(server_job->worker->job, server_job, worker_);
     }
 
@@ -385,7 +385,7 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
     }
 
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 389 - GEARMAND_LIST_DEL (list: %i item: %i) running: %i",job->worker->job, job, job->function->job_running);
+    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: job.cc - line 389 - GEARMAND_LIST_DEL (list: %i item: %i) running: %i",job->worker->job_list, job, job->function->job_running);
 
     GEARMAND_LIST_DEL(job->worker->job, job, worker_);
     
