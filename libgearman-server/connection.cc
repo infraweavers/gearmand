@@ -512,8 +512,6 @@ void gearman_server_con_io_remove(gearman_server_con_st *con)
     if (con->io_list)
     {
       GEARMAND_LIST_DEL(con->thread->io, con, io_);
-      /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: connection.cc - line 514 - GEARMAND_LIST_DEL");
       con->io_list= false;
     }
     if ((lock_error= pthread_mutex_unlock(&con->thread->lock)))
@@ -760,8 +758,6 @@ gearman_server_con_st *gearmand_ready(gearmand_connection_list_st *universal)
     gearmand_io_st *con= universal->ready_con_list;
     con->options.ready= false;
     GEARMAND_LIST_DEL(universal->ready_con, con, ready_);
-    /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 762 - GEARMAND_LIST_DEL");
     return con->root;
   }
 
