@@ -125,7 +125,7 @@ void gearman_server_worker_free(gearman_server_worker_st *worker)
   {
     gearmand_error_t ret= gearman_server_job_queue(worker->job_list);
     /*DEBUG LOGGING*/
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: worker.cc - line 128 - gearman_server_job_queue");
+    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_queue");
     if (ret != GEARMAND_SUCCESS)
     {
       gearmand_gerror_warn("gearman_server_job_queue", ret);

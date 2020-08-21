@@ -440,7 +440,7 @@ gearman_server_con_st * gearman_server_con_to_be_freed_next(gearman_server_threa
     {
       GEARMAND_LIST_DEL(thread->to_be_freed, con, to_be_freed_);
       /*DEBUG LOGGING*/
-        gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 441 - GEARMAND_LIST_DEL");
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: GEARMAND_LIST_DEL");
         if (con->to_be_freed_list)
         {
           con->to_be_freed_list= false;
@@ -596,7 +596,7 @@ void gearman_server_con_proc_remove(gearman_server_con_st *con)
     {
       GEARMAND_LIST_DEL(con->thread->proc, con, proc_);
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 599 - GEARMAND_LIST_DEL");
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: GEARMAND_LIST_DEL");
       con->proc_list= false;
     }
 
@@ -629,7 +629,7 @@ gearman_server_con_proc_next(gearman_server_thread_st *thread)
     {
       GEARMAND_LIST_DEL(thread->proc, con, proc_);
       /*DEBUG LOGGING*/
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: connection.cc - line 632 - GEARMAND_LIST_DEL");
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: GEARMAND_LIST_DEL");
       con->proc_list= false;
       if (!(con->proc_removed))
       {
