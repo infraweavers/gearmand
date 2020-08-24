@@ -516,8 +516,10 @@ void *_proc(void *data)
         {
           gearman_server_con_free_workers(con);
 
-          while (con->client_list != NULL)
+          while (con->client_list != NULL) {
+            gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", con->client_list);
             gearman_server_client_free(con->client_list);
+          }
 
           con->proc_removed= true;
           gearman_server_con_to_be_freed_add(con);

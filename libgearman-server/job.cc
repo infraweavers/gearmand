@@ -316,6 +316,7 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
 
     while (server_job->client_list != NULL)
     {
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", server_job->client_list);
       gearman_server_client_free(server_job->client_list);
     }
 

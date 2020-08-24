@@ -256,6 +256,7 @@ void gearman_server_con_free(gearman_server_con_st *con)
 
   while (con->client_list != NULL)
   {
+    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", con->client_list);
     gearman_server_client_free(con->client_list);
   }
 

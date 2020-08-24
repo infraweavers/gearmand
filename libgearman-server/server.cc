@@ -156,6 +156,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
                          (int)packet->argc);
       if (packet->arg_size[2] -1 > GEARMAN_UNIQUE_SIZE)
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", server_client);
         gearman_server_client_free(server_client);
         gearmand_gerror("unique value too large", GEARMAND_ARGUMENT_TOO_LARGE);
         return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_ARGUMENT_TOO_LARGE, gearman_literal_param("Unique value too large"));
@@ -177,11 +178,13 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
       }
       else if (ret == GEARMAND_JOB_QUEUE_FULL)
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", server_client);
         gearman_server_client_free(server_client);
         return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_QUEUE_ERROR, gearman_literal_param("Job queue is full"));
       }
       else if (ret != GEARMAND_JOB_EXISTS)
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", server_client);
         gearman_server_client_free(server_client);
         gearmand_gerror("gearman_server_job_add", ret);
         return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_QUEUE_ERROR, gearmand_strerror(ret), strlen(gearmand_strerror(ret)));
@@ -195,6 +198,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
                                         NULL);
       if (gearmand_failed(ret))
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", server_client);
         gearman_server_client_free(server_client);
         return gearmand_gerror("gearman_server_io_packet_add", ret);
       }
@@ -278,6 +282,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
       if (packet->arg_size[1] -1 > GEARMAN_UNIQUE_SIZE)
       {
         gearmand_gerror("unique value too large", GEARMAND_ARGUMENT_TOO_LARGE);
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", server_client);
         gearman_server_client_free(server_client);
         return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_ARGUMENT_TOO_LARGE, gearman_literal_param("Unique value too large"));
       }
@@ -296,11 +301,13 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
       }
       else if (ret == GEARMAND_JOB_QUEUE_FULL)
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", server_client);
         gearman_server_client_free(server_client);
         return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_QUEUE_ERROR, gearman_literal_param("Job queue is full"));
       }
       else if (ret != GEARMAND_JOB_EXISTS)
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", server_client);
         gearman_server_client_free(server_client);
         gearmand_gerror("gearman_server_job_add", ret);
         return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_QUEUE_ERROR, gearmand_strerror(ret), strlen(gearmand_strerror(ret)));
@@ -314,6 +321,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
                                         NULL);
       if (gearmand_failed(ret))
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", server_client);
         gearman_server_client_free(server_client);
         return gearmand_gerror("gearman_server_io_packet_add", ret);
       }
