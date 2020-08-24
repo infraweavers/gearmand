@@ -354,7 +354,7 @@ gearmand_error_t gearmand_run(gearmand_st *gearmand)
   /* Initialize server components. */
   if (gearmand->base == NULL)
   {
-    gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "Starting up with pid %lu, verbose is set to %s", 
+    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "Starting up with pid %lu, verbose is set to %s", 
                       (unsigned long)(getpid()),
                       gearmand_verbose_name(gearmand->verbose));
 
@@ -750,7 +750,7 @@ static gearmand_error_t _listen_init(gearmand_st *gearmand)
       port->listen_fd[port->listen_count]= fd;
       port->listen_count++;
 
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "Listening on %s:%s (%d)", host, port->port, fd);
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "Listening on %s:%s (%d)", host, port->port, fd);
     }
 
     freeaddrinfo(addrinfo);
@@ -792,7 +792,7 @@ static void _listen_close(gearmand_st *gearmand)
     {
       if (gearmand->_port_list[x].listen_fd[y] >= 0)
       {
-        gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "Closing listening socket (%d)", gearmand->_port_list[x].listen_fd[y]);
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "Closing listening socket (%d)", gearmand->_port_list[x].listen_fd[y]);
         gearmand_sockfd_close(gearmand->_port_list[x].listen_fd[y]);
         gearmand->_port_list[x].listen_fd[y]= -1;
       }
@@ -811,7 +811,7 @@ static gearmand_error_t _listen_watch(gearmand_st *gearmand)
   {
     for (uint32_t y= 0; y < gearmand->_port_list[x].listen_count; y++)
     {
-      gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "Adding event for listening socket (%d)",
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "Adding event for listening socket (%d)",
                         gearmand->_port_list[x].listen_fd[y]);
 
       if (event_add(&(gearmand->_port_list[x].listen_event[y]), NULL) < 0)
@@ -834,7 +834,7 @@ static void _listen_clear(gearmand_st *gearmand)
     {
       for (uint32_t y= 0; y < gearmand->_port_list[x].listen_count; y++)
       {
-        gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, 
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, 
                           "Clearing event for listening socket (%d)",
                           gearmand->_port_list[x].listen_fd[y]);
 
@@ -900,7 +900,7 @@ static void _listen_event(int event_fd, short events __attribute__ ((unused)), v
     strncpy(port_str, "-", sizeof(port_str));
   }
 
-  gearmand_log_info(GEARMAN_DEFAULT_LOG_PARAM, "Accepted connection from %s:%s", host, port_str);
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "Accepted connection from %s:%s", host, port_str);
 
   {
     int flags= 1;
