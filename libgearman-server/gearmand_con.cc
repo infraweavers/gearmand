@@ -261,7 +261,7 @@ gearmand_error_t gearman_server_job_cancel(gearman_server_st& server,
   gearmand_error_t ret= GEARMAND_NO_JOBS;
   uint32_t key= _server_job_hash(job_handle, job_handle_length);
 
-  gearmand_log_debug(GEARMAN_DEFAULT_LOG_PARAM, "cancel: %.*s", int(job_handle_length), job_handle);
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "cancel: %.*s", int(job_handle_length), job_handle);
 
   for (gearman_server_job_st *server_job= server.job_hash[key % server.hashtable_buckets];
        server_job != NULL;
@@ -288,6 +288,7 @@ gearmand_error_t gearman_server_job_cancel(gearman_server_st& server,
       /* Remove from persistent queue if one exists. */
       if (server_job->job_queued)
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_queue_done : %i",server_job);
         ret= gearman_queue_done(Server,
                                 server_job->unique,
                                 server_job->unique_length,
@@ -299,6 +300,7 @@ gearmand_error_t gearman_server_job_cancel(gearman_server_st& server,
         }
       }
 
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: setting ignore_job on server_job: %i",server_job);
       server_job->ignore_job= true;
       server_job->job_queued= false;
 
