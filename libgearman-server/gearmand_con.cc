@@ -359,6 +359,8 @@ gearman_server_job_st * gearman_server_job_peek(gearman_server_con_st *server_co
 
 gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con)
 {
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_take(%i)",server_con);
+
   for (gearman_server_worker_st *server_worker= server_con->worker_list; server_worker; server_worker= server_worker->con_next)
   {
     if (server_worker->function and server_worker->function->job_count)
@@ -397,8 +399,9 @@ gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con
   
       while (server_job and server_job->when != 0 and server_job->when > current_time)
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_take - while (%i - %i)",server_job, server_job->function_next);
         previous_job= server_job;
-        server_job= server_job->function_next;  
+        server_job= server_job->function_next;
       }
   
       if (server_job)
