@@ -402,7 +402,6 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
     job->function_next= NULL;
     job->numerator= 0;
     job->denominator= 0;
-    job->ignore_job = false;
   }
 
   /* Queue NOOP for possible sleeping workers. */

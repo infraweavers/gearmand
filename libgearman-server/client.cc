@@ -105,7 +105,7 @@ void gearman_server_client_free(gearman_server_client_st *client)
       if (client->job->client_list == NULL)
       {
         gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: setting ignore_job on server_job: %i",client->job);
-        client->job->ignore_job= true;
+//        client->job->ignore_job= true;
         client->job->job_queued= false;
       }
     }
