@@ -261,7 +261,7 @@ gearmand_error_t gearman_server_job_cancel(gearman_server_st& server,
   gearmand_error_t ret= GEARMAND_NO_JOBS;
   uint32_t key= _server_job_hash(job_handle, job_handle_length);
 
-  gearmand_log_debug(GEARMAN_DEFAULT_LOG_PARAM, "cancel: %.*s", int(job_handle_length), job_handle);
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "cancel: %.*s", int(job_handle_length), job_handle);
 
   for (gearman_server_job_st *server_job= server.job_hash[key % server.hashtable_buckets];
        server_job != NULL;
@@ -288,6 +288,7 @@ gearmand_error_t gearman_server_job_cancel(gearman_server_st& server,
       /* Remove from persistent queue if one exists. */
       if (server_job->job_queued)
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_queue_done : %i",server_job);
         ret= gearman_queue_done(Server,
                                 server_job->unique,
                                 server_job->unique_length,
@@ -299,6 +300,7 @@ gearmand_error_t gearman_server_job_cancel(gearman_server_st& server,
         }
       }
 
+      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: setting ignore_job on server_job: %i",server_job);
       server_job->ignore_job= true;
       server_job->job_queued= false;
 
@@ -341,7 +343,7 @@ gearman_server_job_st * gearman_server_job_peek(gearman_server_con_st *server_co
             /* This is only happens when a client disconnects from a foreground
               job. We do this because we don't want to run the job anymore. */
             server_job->ignore_job= false;
-
+            gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(____________)");
             gearman_server_job_free(gearman_server_job_take(server_con));
 
             return gearman_server_job_peek(server_con);
@@ -359,6 +361,8 @@ gearman_server_job_st * gearman_server_job_peek(gearman_server_con_st *server_co
 
 gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con)
 {
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_take(%i)",server_con);
+
   for (gearman_server_worker_st *server_worker= server_con->worker_list; server_worker; server_worker= server_worker->con_next)
   {
     if (server_worker->function and server_worker->function->job_count)
@@ -370,6 +374,8 @@ gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con
       if (Server->flags.round_robin)
       {
         GEARMAND_LIST_DEL(server_con->worker, server_worker, con_)
+        /*DEBUG LOGGING*/
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: - GEARMAND_LIST_DEL");
         _server_con_worker_list_append(server_con->worker_list, server_worker);
         ++server_con->worker_count;
         if (server_con->worker_list == NULL)
@@ -395,8 +401,9 @@ gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con
   
       while (server_job and server_job->when != 0 and server_job->when > current_time)
       {
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_take - while (%i - %i)",server_job, server_job->function_next);
         previous_job= server_job;
-        server_job= server_job->function_next;  
+        server_job= server_job->function_next;
       }
   
       if (server_job)
@@ -411,13 +418,11 @@ gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con
           // Otherwise, just remove the item from the list
           previous_job->function_next= server_job->function_next;
         }
-
         // If it's the tail of the list, move the tail back
         if (server_job->function->job_end[priority] == server_job)
         {
           server_job->function->job_end[priority]= previous_job;
         }
-
         if (server_job->function->job_count > 0)
         {
           server_job->function->job_count--;
@@ -429,6 +434,7 @@ gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con
 
         if (server_job->ignore_job)
         {
+          gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_job_free(%i)",server_job);
           gearman_server_job_free(server_job);
           return gearman_server_job_take(server_con);
         }
@@ -512,8 +518,10 @@ void *_proc(void *data)
         {
           gearman_server_con_free_workers(con);
 
-          while (con->client_list != NULL)
+          while (con->client_list != NULL) {
+            gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: gearman_server_client_free(%i)", con->client_list);
             gearman_server_client_free(con->client_list);
+          }
 
           con->proc_removed= true;
           gearman_server_con_to_be_freed_add(con);

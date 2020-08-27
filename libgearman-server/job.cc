@@ -301,12 +301,15 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
 {
   if (server_job)
   {
-    if (server_job->worker != NULL)
+    if (server_job->worker != NULL && server_job->function->job_running > 0)
     {
       server_job->function->job_running--;
     }
 
-    server_job->function->job_total--;
+    if (server_job->function->job_total > 0)
+    {
+      server_job->function->job_total--;
+    }
 
     if (server_job->data != NULL)
     {
@@ -398,10 +401,13 @@ gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
     gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM,"DEBUG: ignore_job? %i",job->ignore_job);
     
     job->worker= NULL;
-    job->function->job_running--;
     job->function_next= NULL;
     job->numerator= 0;
     job->denominator= 0;
+    if (job->function->job_running)
+    {
+      job->function->job_running--;
+    }
   }
 
   /* Queue NOOP for possible sleeping workers. */
