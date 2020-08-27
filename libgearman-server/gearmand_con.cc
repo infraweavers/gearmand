@@ -428,6 +428,7 @@ gearman_server_job_st *gearman_server_job_take(gearman_server_con_st *server_con
 
         server_job->worker= server_worker;
         GEARMAND_LIST_ADD(server_worker->job, server_job, worker_);
+        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "DEBUG: server_jobs(%i) server_job->function->job_running (%i)", server_job, server_job->function->job_running);
         server_job->function->job_running++;
 
         if (server_job->ignore_job)
