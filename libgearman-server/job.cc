@@ -339,10 +339,29 @@ void gearman_server_job_free(gearman_server_job_st *server_job)
 
 gearmand_error_t gearman_server_job_queue(gearman_server_job_st *job)
 {
+  if (job->ignore_job)
+  {
+    /* Remove from persistent queue if present. */
+    if (job->job_queued)
+    {  
+      gearmand_error_t ret= gearman_queue_done(Server,
+                                              job->unique, job->unique_length,
+                                              job->function->function_name,
+                                              job->function->function_name_size);
+      if (gearmand_failed(ret))
+      {
+       gearmand_log_gerror_warn(GEARMAN_DEFAULT_LOG_PARAM, ret, "Failed to remove %.*s from persistent queue", int(job->unique_length), job->unique);
+      }
+    }  
+
+    gearman_server_job_free(job);
+    return GEARMAND_SUCCESS;
+  }
+
   if (job->worker)
   {
     job->retries++;
-    if (Server->job_retries != 0 && Server->job_retries == job->retries)
+    if (Server->job_retries != 0 && job->retries >= Server->job_retries)
     {
       gearmand_log_notice(GEARMAN_DEFAULT_LOG_PARAM,
                           "Dropped job due to max retry count: %s %.*s",
