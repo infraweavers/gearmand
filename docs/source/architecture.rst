@@ -1,6 +1,0 @@
-Architecture 
-============
-
-TTL
-
-  TBD
