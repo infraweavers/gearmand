@@ -2,6 +2,7 @@
 use v5.10;
 use strict;
 use warnings;
+use lib './lib';
 use Gearman::Worker;
 
 my $worker = Gearman::Worker->new(debug => 1);
