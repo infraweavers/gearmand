@@ -656,8 +656,8 @@ static void _server_job_timeout(int fd, short event, void *arg)
                        "Worker timeout reached on job, requeueing: %s %s",
                        job->job_handle, job->unique);
 
-  gearmand_error_t ret= gearman_server_job_queue(job);
-  if (ret != GEARMAND_SUCCESS)
+  //gearmand_error_t ret= gearman_server_job_queue(job);
+  //if (ret != GEARMAND_SUCCESS)
   {
     gearmand_log_error(GEARMAN_DEFAULT_LOG_PARAM,
                        "Failed trying to requeue job after timeout, job lost: %s %s",
