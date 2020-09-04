@@ -941,6 +941,48 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
     return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_INVALID_COMMAND, gearman_literal_param("Command not expected"));
   }
 
+
+  /***
+   * 
+   * Lets output the gearman status on every loop
+   * 
+   **/
+
+  gearman_server_job_st *server_job= gearman_server_job_get(Server,
+                                                                job_handle, (size_t)job_handle_length,
+                                                                NULL);
+
+  /* Queue status result packet. */
+  if (server_job == NULL)
+  {
+    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM,"status,%.*s,unknown,unknown,unknown,unknown",
+                        int(job_handle_length), job_handle);
+  }
+  else
+  {
+    char numerator_buffer[11]; /* Max string size to hold a uint32_t. */
+    int numerator_buffer_length= snprintf(numerator_buffer, sizeof(numerator_buffer), "%u", server_job->numerator);
+    if ((size_t)numerator_buffer_length >= sizeof(numerator_buffer) || numerator_buffer_length < 0)
+    {
+      gearmand_log_error(GEARMAN_DEFAULT_LOG_PARAM, "snprintf(%d)", numerator_buffer_length);
+      return GEARMAND_MEMORY_ALLOCATION_FAILURE;
+    }
+
+    char denominator_buffer[11]; /* Max string size to hold a uint32_t. */
+    int denominator_buffer_length= snprintf(denominator_buffer, sizeof(denominator_buffer), "%u", server_job->denominator);
+    if ((size_t)denominator_buffer_length >= sizeof(denominator_buffer) || denominator_buffer_length < 0)
+    {
+      gearmand_log_error(GEARMAN_DEFAULT_LOG_PARAM, "snprintf(%d)", denominator_buffer_length);
+      return GEARMAND_MEMORY_ALLOCATION_FAILURE;
+    }
+
+    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM,"status,%.*s,known,%s,%.*s,%.*s",
+                        int(job_handle_length), job_handle,
+                        server_job->worker == NULL ? "quiet" : "running",
+                        int(numerator_buffer_length), numerator_buffer,
+                        int(denominator_buffer_length), denominator_buffer);
+
+
   return GEARMAND_SUCCESS;
 }
 
