@@ -119,7 +119,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
     return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_INVALID_COMMAND, gearman_literal_param("Invalid command expected"));
   }
 
-  gearmand_log_debug(GEARMAN_DEFAULT_LOG_PARAM,
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM,
                      "PACKET COMMAND: %s", gearmand_strcommand(packet));
 
   switch (packet->command)
