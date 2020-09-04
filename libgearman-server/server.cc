@@ -119,7 +119,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
     return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_INVALID_COMMAND, gearman_literal_param("Invalid command expected"));
   }
 
-  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM,
+  gearmand_log_debug(GEARMAN_DEFAULT_LOG_PARAM,
                      "PACKET COMMAND: %s", gearmand_strcommand(packet));
 
   switch (packet->command)
@@ -523,7 +523,6 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
 
   /* Worker requests. */
   case GEARMAN_COMMAND_CAN_DO:
-    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "case GEARMAN_COMMAND_CAN_DO:");
     gearmand_log_debug(GEARMAN_DEFAULT_LOG_PARAM, "Registering function: %.*s", packet->arg_size[0], packet->arg[0]);
     if (gearman_server_worker_add(server_con, (char *)(packet->arg[0]),
                                   packet->arg_size[0], 0) == NULL)
@@ -535,7 +534,6 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
 
   case GEARMAN_COMMAND_CAN_DO_TIMEOUT:
     {
-      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "case GEARMAN_COMMAND_CAN_DO_TIMEOUT:");
       if (packet->arg_size[1] > GEARMAN_MAXIMUM_INTEGER_DISPLAY_LENGTH)
       {
         return gearmand_log_gerror(GEARMAN_DEFAULT_LOG_PARAM, GEARMAND_INVALID_PACKET, "GEARMAND_INVALID_PACKET:strtol");
@@ -566,20 +564,17 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
     break;
 
   case GEARMAN_COMMAND_CANT_DO:
-    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "case GEARMAN_COMMAND_CANT_DO:");
     gearmand_log_debug(GEARMAN_DEFAULT_LOG_PARAM, "Removing function: %.*s", packet->arg_size[0], packet->arg[0]);
     gearman_server_con_free_worker(server_con, (char *)(packet->arg[0]),
                                    packet->arg_size[0]);
     break;
 
   case GEARMAN_COMMAND_RESET_ABILITIES:
-    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "case GEARMAN_COMMAND_RESET_ABILITIES:");
     gearman_server_con_free_workers(server_con);
     break;
 
   case GEARMAN_COMMAND_PRE_SLEEP:
     {
-      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "case GEARMAN_COMMAND_PRE_SLEEP:");
       gearman_server_job_st *server_job= gearman_server_job_peek(server_con);
       if (server_job == NULL)
       {
@@ -607,7 +602,6 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
   case GEARMAN_COMMAND_GRAB_JOB_UNIQ:
   case GEARMAN_COMMAND_GRAB_JOB_ALL:
     {
-      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "case GEARMAN_COMMAND_GRAB_JOB_ALL:");
       server_con->is_sleeping= false;
       server_con->is_noop_sent= false;
 
@@ -708,7 +702,6 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
   case GEARMAN_COMMAND_WORK_DATA:
   case GEARMAN_COMMAND_WORK_WARNING:
     {
-      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "case GEARMAN_COMMAND_WORK_WARNING:");
       gearman_server_job_st *server_job= gearman_server_job_get(Server,
                                                                 (char *)(packet->arg[0]), (size_t)strlen(packet->arg[0]),
                                                                 server_con);
@@ -729,7 +722,6 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
 
   case GEARMAN_COMMAND_WORK_STATUS:
     {
-      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "case GEARMAN_COMMAND_WORK_STATUS:");
       gearman_server_job_st *server_job= gearman_server_job_get(Server,
                                                                 (char *)(packet->arg[0]), (size_t)strlen(packet->arg[0]),
                                                                 server_con);
@@ -779,7 +771,6 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
 
   case GEARMAN_COMMAND_WORK_COMPLETE:
     {
-      gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "case GEARMAN_COMMAND_WORK_COMPLETE:");
       gearman_server_job_st *server_job= gearman_server_job_get(Server,
                                                                 (char *)(packet->arg[0]), (size_t)strlen(packet->arg[0]),
                                                                 server_con);
