@@ -932,13 +932,24 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
     return _server_error_packet(GEARMAN_DEFAULT_LOG_PARAM, server_con, GEARMAN_INVALID_COMMAND, gearman_literal_param("Command not expected"));
   }
 
-
   /***
    * 
    * Lets output the gearman status on every loop
    * 
    **/
 
+  char job_handle[GEARMAND_JOB_HANDLE_SIZE];
+
+  /* This may not be NULL terminated, so copy to make sure it is. */
+  int job_handle_length= snprintf(job_handle, GEARMAND_JOB_HANDLE_SIZE, "%.*s",
+                                  (int)(packet->arg_size[0]), (char *)(packet->arg[0]));
+
+  if (job_handle_length >= GEARMAND_JOB_HANDLE_SIZE || job_handle_length < 0)
+  {
+    gearmand_log_error(GEARMAN_DEFAULT_LOG_PARAM, "snprintf(%d)", job_handle_length);
+    return GEARMAND_MEMORY_ALLOCATION_FAILURE;
+  }
+  
   gearman_server_job_st *server_job= gearman_server_job_get(Server,
                                                                 job_handle, (size_t)job_handle_length,
                                                                 NULL);
