@@ -251,7 +251,7 @@ gearman_server_job_st *gearman_server_job_get(gearman_server_st *server,
       return server_job;
     }
   }
-  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "gearman_server_job_get notnested:%.*s %i %i", job_handle_length, job_handle, server,worker_con);
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "gearman_server_job_get notnested:%.*s %i %i server_job: %i ", job_handle_length, job_handle, server, worker_con, server_job);
   return NULL;
 }
 
