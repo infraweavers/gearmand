@@ -983,7 +983,7 @@ gearmand_error_t gearman_server_run_command(gearman_server_con_st *server_con,
                         server_job->worker == NULL ? "quiet" : "running",
                         int(numerator_buffer_length), numerator_buffer,
                         int(denominator_buffer_length), denominator_buffer);
-
+  }
 
   return GEARMAND_SUCCESS;
 }
