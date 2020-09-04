@@ -244,14 +244,14 @@ gearman_server_job_st *gearman_server_job_get(gearman_server_st *server,
       if (worker_con != NULL and
           (server_job->worker == NULL or server_job->worker->con != worker_con))
       {
-        gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "gearman_server_job_get nested:%.*s %i %i", job_handle_length, job_handle, server,worker_con);
+        //gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "gearman_server_job_get nested:%.*s %i %i", job_handle_length, job_handle, server,worker_con);
         return NULL;
       }
 
       return server_job;
     }
   }
-  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "gearman_server_job_get notnested:%.*s %i %i server_job: %i ", job_handle_length, job_handle, server, worker_con, server->job_hash[key % server->hashtable_buckets]);
+  //gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "gearman_server_job_get notnested:%.*s %i %i server_job: %i ", job_handle_length, job_handle, server, worker_con, server->job_hash[key % server->hashtable_buckets]);
   return NULL;
 }
 
