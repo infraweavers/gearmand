@@ -369,7 +369,9 @@ int main(int argc, char *argv[])
   {
     return EXIT_FAILURE;
   }
-
+  
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "debugging ::  %u threads", threads);
+  
   if (threads == 0)
   {
     uint32_t number_of_threads= libtest::number_of_cpus();
@@ -379,6 +381,7 @@ int main(int argc, char *argv[])
       threads= number_of_threads;
     }
   }
+  gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "debugging2 ::  %u threads", threads);
 
   gearmand_config_st *gearmand_config= gearmand_config_create();
 
