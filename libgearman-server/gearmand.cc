@@ -387,7 +387,7 @@ gearmand_error_t gearmand_run(gearmand_st *gearmand)
       return gearmand->ret;
     }
 
-    gearmand_log_debug(GEARMAN_DEFAULT_LOG_PARAM, "Creating %u threads", gearmand->threads);
+    gearmand_log_warning(GEARMAN_DEFAULT_LOG_PARAM, "Creating %u threads", gearmand->threads);
 
     /* If we have 0 threads we still need to create a fake one for context. */
     uint32_t x= 0;
