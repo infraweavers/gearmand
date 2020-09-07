@@ -369,7 +369,7 @@ int main(int argc, char *argv[])
   {
     return EXIT_FAILURE;
   }
-   
+  
   if (threads == 0)
   {
     uint32_t number_of_threads= libtest::number_of_cpus();
@@ -379,7 +379,7 @@ int main(int argc, char *argv[])
       threads= number_of_threads;
     }
   }
-
+  std::cout << "My threads: " << threads << std::endl;
   gearmand_config_st *gearmand_config= gearmand_config_create();
 
   if (gearmand_config == NULL)
