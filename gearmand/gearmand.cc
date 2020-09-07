@@ -372,17 +372,13 @@ int main(int argc, char *argv[])
   
   if (threads == 0)
   {
-    std::cout << "Threads, is Zero." << std::endl;
     uint32_t number_of_threads= libtest::number_of_cpus();
-    std::cout << "We have this many CPUS:"<< number_of_threads << std::endl;
     
     if (number_of_threads > 4)
     {
       threads= number_of_threads;
     }
   }
-
-  std::cout << "My threads: " << threads << std::endl;
 
   gearmand_config_st *gearmand_config= gearmand_config_create();
 
