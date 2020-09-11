@@ -204,7 +204,7 @@ void gearman_server_con_attempt_free(gearman_server_con_st *con)
 void gearman_server_con_free(gearman_server_con_st *con)
 {
   gearmand_log_error(GEARMAN_DEFAULT_LOG_PARAM, "Freeing: %llu", con);
-  
+
   gearman_server_thread_st *thread= con->thread;
   con->_host= NULL;
   con->_port= NULL;
@@ -377,6 +377,7 @@ void gearman_server_con_free_workers(gearman_server_con_st *con)
 {
   while (con->worker_list != NULL)
   {
+    gearmand_log_error(GEARMAN_DEFAULT_LOG_PARAM, "cleaning up the worker_list: %i", con->worker_list);
     gearman_server_worker_free(con->worker_list);
   }
 }
